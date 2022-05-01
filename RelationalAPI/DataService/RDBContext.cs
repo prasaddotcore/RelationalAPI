@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using RelationalAPI.DataService.DataModels;
 using System;
 using System.Collections.Generic;
@@ -28,5 +29,24 @@ namespace RelationalAPI.DataService
         public DbSet<OrderHistory> OrderHistories { get; set; }
 
         public DbSet<OrderAttachment> OrderAttachments { get; set; }
+
+
+
+        public async Task<int> GetID()
+        {
+            var parameterReturn = new SqlParameter
+            {
+                ParameterName = "ReturnValue",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Direction = System.Data.ParameterDirection.Output,
+            };
+
+            var result = this.Database
+                .ExecuteSqlRaw("EXEC @returnValue = [dbo].[GenerateID]", parameterReturn);
+
+            int returnValue = (int)parameterReturn.Value;
+
+            return returnValue;
+        }
     }
 }

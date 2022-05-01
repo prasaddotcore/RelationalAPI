@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RelationalAPI.AuthService;
+using RelationalAPI.BusinessService;
 using RelationalAPI.DataService;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,12 @@ namespace RelationalAPI.Configuration
             service.AddScoped<IJWTManager, JWTManager>();
 
             service.AddScoped<IAuthenticationManager, AuthenticationManager>();
+
+
+            service.AddScoped<IUserManager, UserManager>();
+            service.AddScoped<IUserClaimManager, UserClaimManager>();
+
+            service.AddScoped<IOrderManager, OrderManager>();
         }
     }
 }

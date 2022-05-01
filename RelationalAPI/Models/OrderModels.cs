@@ -24,8 +24,16 @@ namespace RelationalAPI.Models
     }
     public class NewOrderModel
     {
-
-        public List<OrderItemModel> Items { get; set; }
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
+        public string  CustomerName { get; set; }
+        public string Remarks { get; set; }
+        public string Status { get; set; }
+        public int? AssignedUserId { get; set; }
+        public int? EngineerId { get; set; }
+        public string EngineerName { get; set; }
+        public string AssignedToName { get; set; }
+        public List<OrderItemModel> Items { get; set; }        
     }
     public class OrderItemModel
     {
@@ -53,5 +61,21 @@ namespace RelationalAPI.Models
         public string AttachmentName { get; set; }
         public string AttachmentBase64 { get; set; }
         public string AttachmentUrl { get; set; }
+    }
+
+    public class OrderDetailsDTOModel
+    {
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public string Remarks { get; set; }
+        public string Status { get; set; }
+        public int? AssignedUserId { get; set; }
+        public int? EngineerId { get; set; }
+        public string EngineerName { get; set; }
+        public string AssignedToName { get; set; }
+
+        public List<OrderItemModel> Items { get; set; }
+        public List<OrderAttachmentModel> Attachments { get; set; }
     }
 }

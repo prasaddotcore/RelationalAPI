@@ -14,6 +14,7 @@ namespace RelationalAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthenticationManager _authenticationManager;
+        
 
         public AuthController(IAuthenticationManager authenticationManager)
         {
@@ -28,5 +29,6 @@ namespace RelationalAPI.Controllers
             return Ok(resp);
         }
 
+      
     }
 }

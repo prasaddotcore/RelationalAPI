@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RelationalAPI.AuthService;
 using RelationalAPI.BusinessService;
 using RelationalAPI.DataService;
+using RelationalAPI.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,8 @@ namespace RelationalAPI.Configuration
             service.AddScoped<IUserClaimManager, UserClaimManager>();
 
             service.AddScoped<IOrderManager, OrderManager>();
+
+            service.AddMvc().AddFluentValidation(Flu => Flu.RegisterValidatorsFromAssemblyContaining<OrderValidator>());
         }
     }
 }

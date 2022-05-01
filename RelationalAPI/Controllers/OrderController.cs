@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RelationalAPI.BusinessService;
 using RelationalAPI.Models;
@@ -11,6 +12,7 @@ namespace RelationalAPI.Controllers
 {
     [Route("api/orders")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderManager _orderManager;

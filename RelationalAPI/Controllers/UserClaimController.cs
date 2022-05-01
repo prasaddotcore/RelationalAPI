@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RelationalAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RelationalAPI.Controllers
 {
     [Route("api/userclaim")]
     [ApiController]
+    [Authorize]
     public class UserClaimController : ControllerBase
     {
         private readonly IUserClaimManager _userClaimsManager;

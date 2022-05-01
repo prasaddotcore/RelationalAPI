@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RelationalAPI.Configuration;
+using RelationalAPI.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,9 @@ namespace RelationalAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(options=> {
+                options.Filters.Add(typeof(ParseBadRequest));
+            }).ConfigureApiBehaviorOptions(BadRequestBehaviour.Parse);
             //Sql Configuration
             services.AddSqlServerConfig(Configuration);
             //JWt token
@@ -39,6 +42,16 @@ namespace RelationalAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RelationalAPI", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme { 
+                In=ParameterLocation.Header,
+                Description="Bearer token",
+                Name="Auhorization",
+                Type=SecuritySchemeType.Http,
+                BearerFormat="JWT",
+                Scheme="bearer"
+                });
+
+               
             });
         }
 

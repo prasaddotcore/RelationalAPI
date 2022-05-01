@@ -22,7 +22,7 @@ namespace RelationalAPI.Controllers
         [HttpGet("testId")]
         public IActionResult GetID()
         {
-           return Ok( );
+            return Ok();
         }
     }
 }

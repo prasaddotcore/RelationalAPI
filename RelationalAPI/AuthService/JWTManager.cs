@@ -41,8 +41,8 @@ namespace RelationalAPI.AuthService
                 var secCreds = new SigningCredentials(new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(_secret)), SecurityAlgorithms.HmacSha256Signature);
 
                 var token = new JwtSecurityToken(
-                  issuer: "http://vserveq.voltasworld.com",
-                  audience: "http://vserveq.voltasworld.com",
+                  issuer: "http://voltas.com",
+                  audience: "http://voltas.com",
                   expires: DateTime.UtcNow.AddDays(1),
                   claims: lsClaims,
                   signingCredentials: secCreds

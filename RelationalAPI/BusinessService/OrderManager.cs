@@ -75,7 +75,37 @@ namespace RelationalAPI.BusinessService
         }
         public async Task<OrderDetailsDTOModel> GetOrderDetails(int Id)
         {
-            throw new NotImplementedException();
+            var objDetails = new OrderDetailsDTOModel { };
+            var objD = await _RDBContext.Orders.Where(x => x.Id == Id).Include(i => i.Items).Include(j => j.History).Include(a => a.Attachments).FirstOrDefaultAsync();
+            if (objD != null)
+            {
+                objDetails.CustomerId = objD.CustomerId;
+                objDetails.CustomerName = objD.CustomerName;
+                objDetails.Remarks = objD.Remarks;
+                objDetails.Id = objD.Id;
+
+                objDetails.Items = objD.Items.Select(x => new OrderItemModel {
+                Id=x.Id,
+                ProductId=x.ProductId,
+                ProductName=x.ProductName,
+                Quantity=x.Quantity,
+                Price=x.Price,
+                Amount=x.Amount,
+                OrderId=x.OrderId
+                }).ToList();
+
+                if (objD.Attachments != null && objD.Attachments.Count > 0)
+                    objDetails.Attachments = objD.Attachments.Select(x => new OrderAttachmentModel {
+                    Id=x.Id,
+                    OrderId=x.OrderId,
+                    AttachmentName=x.AttachmentName,
+                    AttachmentUrl=x.AttachmentUrl
+                    }).ToList();
+
+
+            }
+
+            return objDetails;
         }
         #endregion
 
